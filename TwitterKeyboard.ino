@@ -6,6 +6,8 @@
 
 const int DataPin = 8;
 const int IRQpin =  3;
+const int TweetSendLed = 9;
+const int waitTweetSend = 250; // time in ms
 
 PS2Keyboard keyboard;
 
@@ -24,6 +26,7 @@ int msgPos = 0;
 
 void setup()
 {
+  pinMode(TweetSendLed, OUTPUT);
   keyboard.begin(DataPin, IRQpin, PS2Keymap_German);
   
   delay(1000);
@@ -78,6 +81,9 @@ void postTweet()
     //int status = twitter.wait(&Serial);
     if (status == 200) {
       Serial.println("OK.");
+      digitalWrite(TweetSendLed, HIGH);
+      delay(waitTweetSend);
+      digitalWrite(TweetSendLed, LOW);
     } else {
       Serial.print("failed : code ");
       Serial.println(status);
