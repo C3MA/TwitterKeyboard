@@ -58,8 +58,11 @@ void loop()
     msgPos++;  
     msg[msgPos] = 0; 
 
-   if(msgPos >= 139)
+   if(msgPos >= 139){
       postTweet();
+      msgPos = 0;
+      msg[0] = 0;
+    }
   }
   
 }
